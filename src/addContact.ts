@@ -1,5 +1,6 @@
 import { Contact } from './type';
-import { readContacts, writeContacts } from './readWrite';
+import { readContacts } from './readContacts';
+import { writeContacts } from './writeContact';
 
 export function addContact(newContact: Contact): void {
     try {

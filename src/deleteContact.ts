@@ -1,5 +1,5 @@
-import { Contact } from './type';
-import { readContacts, writeContacts } from './readWrite';
+import { readContacts } from './readContacts';
+import { writeContacts } from './writeContact';
 
 export function deleteContact(name: string): void {
     try {

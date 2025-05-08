@@ -1,3 +1,3 @@
-import { runApp } from './main';
+import { main } from './main';
 
-runApp();
+main();

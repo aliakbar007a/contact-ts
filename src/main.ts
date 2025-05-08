@@ -2,11 +2,11 @@ import { askQuestion } from './inputHandler';
 import { isValidName } from './validationName';
 import { isValidPhone } from './validationPhone';
 import { addContact } from './addContact';
-import { editContact } from './editContact';
+import { editContact, findName } from './editContact';
 import { deleteContact } from './deleteContact';
 import { contactMenu } from './contactMenu';
 
-export async function runApp(): Promise<void> {
+export async function main(): Promise<void> {
   const choice = await contactMenu();
 
   switch (choice) {
@@ -27,6 +27,9 @@ export async function runApp(): Promise<void> {
 
     case '2': {
       const editName = await askQuestion('Enter name to edit: ');
+      if(findName(editName)){
+        break;
+      }
       const newName = await askQuestion('Enter new name: ')
       const newPhone = await askQuestion('Enter new phone: ');
       if (isValidName(newName) && isValidPhone(newPhone)) {
@@ -50,5 +53,5 @@ export async function runApp(): Promise<void> {
     default:
       console.log('Invalid choice.');
   }
-  await runApp();
+  await main();
 }

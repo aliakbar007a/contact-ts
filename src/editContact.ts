@@ -1,18 +1,7 @@
 import { Contact } from './type';
-import { readContacts, writeContacts } from './readWrite';
+import { readContacts } from './readContacts';
+import { writeContacts } from './writeContact';
 
-// export function editContact(name: string, newPhone: string): void {
-//   const contacts = readContacts();
-//   const index = contacts.findIndex(c => c.name === name);
-//   if (index !== -1) {
-//     contacts[index].phone = newPhone;
-//     writeContacts(contacts);
-//   } else {
-//     console.log('Contact not found.');
-//   }
-// }
-
-////////////
 export function editContact(editName: string, newName: string, newPhone: string): void {
     try {
         const contacts = readContacts();
@@ -22,13 +11,24 @@ export function editContact(editName: string, newName: string, newPhone: string)
           contacts[index].phone = newPhone;
           writeContacts(contacts);
           console.log('Contact updated');
-        } else {
-          console.log('Contact not found.');
-        }
+        } 
       } catch (error) {
         console.error('Failed to edit contact:', error);
       }
 }
 
-
+export function findName(editName: string): boolean{
+  try {
+    const contacts = readContacts();
+    const index = contacts.findIndex(c => c.name === editName);
+    if (index === -1) {
+      console.log('Contact not found.');
+      return false;
+    } 
+    return true
+  } catch (error) {
+    console.error('Failed to edit contact:', error);
+    return false
+  }
+}
 
