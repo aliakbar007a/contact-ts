@@ -1,4 +1,4 @@
-import { askQuestion } from './inputHandler';
+import { askQuestion } from '../core/inputHandler';
 
 export async function contactMenu(): Promise<string> {
  
