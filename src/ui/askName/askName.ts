@@ -1,5 +1,5 @@
-import { askQuestion } from '../core/inputHandler';
-import { isValidName } from '../features/validations/validationName';
+import { askQuestion } from '../../core/inputHandler';
+import { isValidName } from '../../features/validations/validationName';
 
 export async function askName(): Promise<string > {
   const name = await askQuestion('Enter name: ');

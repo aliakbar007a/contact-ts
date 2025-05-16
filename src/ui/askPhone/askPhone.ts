@@ -1,6 +1,6 @@
-import { askName } from "./askName";
-import { askQuestion } from "../core/inputHandler";
-import { isValidPhone } from "../features/validations/validationPhone";
+import { askName } from "../askName/askName";
+import { askQuestion } from "../../core/inputHandler";
+import { isValidPhone } from "../../features/validations/validationPhone";
 
 export async function askPhone(): Promise<string > {
   const phone = await askQuestion('Enter phone: ');

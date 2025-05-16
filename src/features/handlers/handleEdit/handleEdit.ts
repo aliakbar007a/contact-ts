@@ -1,7 +1,7 @@
 import { editContact } from '../../contactServices/editContact/editContact';
-import { askPreName } from '../../../ui/askPreName';
-import { askName } from '../../../ui/askName';
-import { askPhone } from '../../../ui/askPhone';
+import { askPreName } from '../../../ui/askPreName/askPreName';
+import { askName } from '../../../ui/askName/askName';
+import { askPhone } from '../../../ui/askPhone/askPhone';
 
 export async function handleEdit(): Promise<void> {
   const preName = await askPreName();

@@ -1,5 +1,5 @@
 import { deleteContact } from '../../contactServices/deleteContact/deleteContact';
-import { askDelName } from '../../../ui/askDelName';
+import { askDelName } from '../../../ui/askDelName/askDelName';
 
 export async function handleDelete(): Promise<void> {
   const delName = await askDelName();

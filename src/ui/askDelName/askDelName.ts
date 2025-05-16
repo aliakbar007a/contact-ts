@@ -1,5 +1,5 @@
-import { validationDoesName } from '../features/validations/validationDoesName';
-import { askQuestion } from '../core/inputHandler';
+import { validationDoesName } from '../../features/validations/validationDoesName';
+import { askQuestion } from '../../core/inputHandler';
 
 
 export async function askDelName(): Promise<string > {
