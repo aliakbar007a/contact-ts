@@ -3,7 +3,12 @@ import { askDelName } from '../../../ui/askDelName/askDelName';
 
 export async function handleDelete(): Promise<void> {
   const delName = await askDelName();
-  console.log(delName);
+  const isDeleted = deleteContact(delName);
   
-  deleteContact(delName);
+  if(isDeleted){
+    console.log('Contact deleted successfully.');
+  }else{
+    console.log('Contact not found.');
+  }
+  
 }

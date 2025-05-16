@@ -8,14 +8,12 @@ export function deleteContact(name: string): boolean {
     const index =  contacts.findIndex(c => c.name === name);
 
     if (index === -1) {
-      console.log('Contact not found.');
       return false;
     }
-
     contacts.splice(index, 1);
     writeContacts(contacts);
-    console.log('Contact deleted successfully.');
     return true;
+
   } catch (error) {
     console.error('Failed to delete :', error);
     return false;

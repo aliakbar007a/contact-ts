@@ -8,6 +8,10 @@ export async function handleEdit(): Promise<void> {
   const newName = await askName();
   const newPhone = await askPhone();
 
-  editContact({ preName, newName, newPhone});
-  
+  const isEdited = editContact({ preName, newName, newPhone});
+   if(isEdited){
+    console.log('Contact updated successfully.');
+  }else{
+    console.log('Contact not found.');
+  }
 }

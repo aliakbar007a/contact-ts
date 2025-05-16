@@ -6,5 +6,8 @@ export async function handleAdd(): Promise<void> {
   const name = await askName();
   const phone = await askPhone();
   
-  addContact({ name, phone });
+  const isAdded =  addContact({ name, phone });
+   if(isAdded){
+    console.log("contact added");
+  }
 }

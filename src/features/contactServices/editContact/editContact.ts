@@ -9,7 +9,6 @@ export function editContact( Contact: updateContact): boolean {
     const contact = contacts.find(c => c.name === Contact.preName);
 
     if (!contact) {
-      console.log('Contact not found.');
       return false;
     }
 
@@ -17,8 +16,8 @@ export function editContact( Contact: updateContact): boolean {
     contact.phone = Contact.newPhone;
 
     writeContacts(contacts);
-    console.log('Contact updated successfully.');
     return true;
+    
   } catch (error) {
     console.error('Failed to edit contact:', error);
     return false;
