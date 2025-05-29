@@ -1,6 +1,6 @@
 import { readContacts } from "../../core/readContacts";
 
-export function validationDoesName(name: string): boolean {
+export function validDoesName(name: string): boolean {
     try {
       return Boolean(readContacts().find(c => c.name === name));
     } catch (error) {

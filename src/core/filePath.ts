@@ -1,2 +1,2 @@
-import path from 'path';
-export const filePath = path.join(__dirname, 'contact.json');
+import { join } from 'path';
+export const filePath = join(__dirname, 'contact.json');

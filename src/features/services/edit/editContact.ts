@@ -3,7 +3,7 @@ import { readContacts } from '../../../core/readContacts';
 import { writeContacts } from '../../../core/writeContact';
 
 
-export function editContact( Contact: updateContact): boolean {
+export function editContact(Contact: updateContact): boolean {
   try {
     const contacts = readContacts();
     const contact = contacts.find(c => c.name === Contact.preName);
@@ -14,6 +14,7 @@ export function editContact( Contact: updateContact): boolean {
 
     contact.name = Contact.newName;
     contact.phone = Contact.newPhone;
+    contact.tag = Contact.newTag;
 
     writeContacts(contacts);
     return true;

@@ -1,7 +1,7 @@
 import { contactMenu } from './ui/contactMenu';
-import { handleAdd } from './features/handlers/hamdleAdd/hamdleAdd';
-import { handleEdit } from './features/handlers/handleEdit/handleEdit';
-import { handleDelete } from './features/handlers/handleDelete/handleDelete';
+import { handleAdd } from './features/services/add/modle';
+import { handleEdit } from './features/services/edit/modle';
+import { handleDelete } from './features/services/delete/modle';
 
 export async function main(): Promise<void> {
   const choice = await contactMenu();
