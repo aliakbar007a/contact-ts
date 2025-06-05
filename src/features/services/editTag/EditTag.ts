@@ -3,7 +3,7 @@
 import { FileContactRepository } from '../../../core/fileContactRep';
 import { Tag } from './tagEnum';
 
-export function EditTag(index: number, newTag: Tag): boolean {
+export function EditTag(index: number, newTag: string): boolean {
   const repsitory = new FileContactRepository
   try {
     const contacts = repsitory.read();
