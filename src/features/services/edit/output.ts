@@ -1,7 +1,3 @@
-export function editContactResult (isEdited: boolean):void{
-    if(isEdited){
-      console.log('Contact updated successfully.');  
-    } else {
-      console.log('Contact not found.');
-    }
+export function editContactResult(isEdited: boolean): void {
+  console.log(isEdited ? 'contact updated successfully!' : 'Failed to update contact.');
 }

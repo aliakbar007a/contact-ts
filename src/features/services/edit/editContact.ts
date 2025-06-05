@@ -1,11 +1,11 @@
 import { updateContact } from '../../../core/type';
-import { readContacts } from '../../../core/readContacts';
-import { writeContacts } from '../../../core/writeContact';
+import { FileContactRepository } from '../../../core/fileContactRep';
 
 
 export function editContact(Contact: updateContact): boolean {
+   const repsitory = new FileContactRepository
   try {
-    const contacts = readContacts();
+    const contacts = repsitory.read();
     const contact = contacts.find(c => c.name === Contact.preName);
 
     if (!contact) {
@@ -16,7 +16,7 @@ export function editContact(Contact: updateContact): boolean {
     contact.phone = Contact.newPhone;
     contact.tag = Contact.newTag;
 
-    writeContacts(contacts);
+    repsitory.writeAll(contacts);
     return true;
     
   } catch (error) {

@@ -1,12 +1,12 @@
+import { FileContactRepository } from '../../../core/fileContactRep';
 import { Contact } from '../../../core/type';
-import { readContacts } from '../../../core/readContacts';
-import { writeContacts } from '../../../core/writeContact';
+
 
 export function addContact(newContact: Contact): boolean {
+  const repository = new FileContactRepository
     try {
-        const contacts = readContacts();
-        contacts.push(newContact);
-        writeContacts(contacts);
+      
+      repository.add(newContact)
         return true;
       } catch (error) {
         console.error('Failed to add contact:', error);

@@ -1,17 +1,18 @@
-import { readContacts } from '../../../core/readContacts';
-import { writeContacts } from '../../../core/writeContact';
+import { FileContactRepository } from '../../../core/fileContactRep';
+
 
 
 export function deleteContact(name: string): boolean {
+  const repsitory = new FileContactRepository 
   try {
-    const contacts = readContacts();
+    const contacts = repsitory.read();
     const index =  contacts.findIndex(c => c.name === name);
 
     if (index === -1) {
       return false;
     }
     contacts.splice(index, 1);
-    writeContacts(contacts);
+    repsitory.writeAll(contacts);
     return true;
 
   } catch (error) {
