@@ -1,30 +1,20 @@
-import { contactMenu } from './ui/contactMenu';
-import { handleAdd } from './features/services/add/modle';
-import { handleEdit } from './features/services/edit/modle';
-import { handleDelete } from './features/services/delete/modle';
-import { handleEditTag } from './features/services/editTag/modle';
-import { closeInput } from './core/inputHandler';
+import { mainMenu } from './interfaces/cli/mainMenu';
+import { handleAdd } from './domain/modle/handleAdd';
+import { closeInput } from './shared/inputHandler';
+import { switchContact } from './switchContact';
 
 export async function main(): Promise<void> {
-  const choice = await contactMenu();
+  const choice = await mainMenu();
   switch (choice) {
     case '1': {
       await handleAdd();
       break;
     }
     case '2': {
-     await handleEdit();
+     await switchContact();
       break;
     }
-    case '3': {
-      await handleDelete();
-      break;
-    }
-    case '4': {
-      await handleEditTag();
-      break;
-    }
-    case '5':
+    case '3':
       console.log('Goodbye!');
       closeInput();
       return; 
