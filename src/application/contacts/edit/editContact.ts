@@ -1,54 +1,41 @@
-import { updateContact } from '../../../domain/type';
-import { FileContactRepository } from '../../../infrastructure/repositories/fileContactRep';
+import { contactRepository } from "../../../infrastructure/repositories/fileContactRep";
+import { Contact, ContactResponse } from "../../../domain/type";
+import { validContactExists } from "../../validations/validContactExists";
+import { validateName } from "../../validations/validName";
+import { validatePhone } from "../../validations/validPhone";
+import { validateDuplicates } from "../../validations/validDuplicates";
 
+export async function editContact(
+  name: string,
+  updatedData: Partial<Contact> 
+): Promise<ContactResponse> {
+    const contacts = await contactRepository.read();
+    const { contact, index } = await validContactExists(name);
 
-export function editContact(Contact: updateContact): boolean {
-   const repsitory = new FileContactRepository
-  try {
-    const contacts = repsitory.read();
-    const contact = contacts.find(c => c.name === Contact.preName);
-
-    if (!contact) {
-      return false;
+    if (!contact || index === -1) {
+     throw new Error("مخاطب مورد نظر یافت نشد.");
     }
+    if (updatedData.name) validateName(updatedData.name);
+    if (updatedData.phone) validatePhone(updatedData.phone);
+    if (
+      (updatedData.phone && updatedData.phone !== contact.phone)
+    ) {
+      await validateDuplicates(updatedData as Contact);
+    }
+  
+    const updatedContact: Contact = {
+      ...contact,
+      ...updatedData,
+    };
 
-    contact.name = Contact.newName;
-    contact.phone = Contact.newPhone;
-    contact.tag = Contact.newTag;
+    contacts[index] = updatedContact;
 
-    repsitory.writeAll(contacts);
-    return true;
-    
-  } catch (error) {
-    console.error('Failed to edit contact:', error);
-    return false;
-  }
+    await contactRepository.writeAll(contacts);
+
+    return {
+      success: true,
+      message: "مخاطب با موفقیت ویرایش شد.",
+      data: updatedContact,
+    };
+  
 }
-
-// import { FileContactRepository } from "../../../infrastructure/repositories/fileContactRep";
-// import { Contact } from "../../../domain/type";
-
-// export async function editContact(
-//   name: string,
-//   newData: Partial<Contact>
-// ): Promise<{ success: boolean; message?: string; data?: Contact }> {
-//   const repository = new FileContactRepository
-//   try {
-//     const contacts = await repository.read();
-//     const index = contacts.findIndex(c => c.name === name);
-
-//     if (index === -1) {
-//       return { success: false, message: "Contact not found" };
-//     }
-
-//     const updatedContact = { ...contacts[index], ...newData };
-//     contacts[index] = updatedContact;
-
-//     await repository.writeAll(contacts);
-
-//     return { success: true, message: "contact updated", data: updatedContact };
-//   } catch (error) {
-//     console.error("Failed to edit contact:", error);
-//     return { success: false, message: "Could not edit contact" };
-//   }
-// }

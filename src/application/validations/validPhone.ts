@@ -1,4 +1,6 @@
-export function isValidPhone(phone: string): boolean {
-    const phoneRegex = /^[0-9]{10,15}$/; 
-    return phoneRegex.test(phone);
+export function validatePhone(phone: string): void {
+  const phoneRegex = /^[0-9]{10,15}$/;
+  if (!phoneRegex.test(phone)) {
+    throw new Error("شماره تلفن نامعتبر است.");
   }
+}

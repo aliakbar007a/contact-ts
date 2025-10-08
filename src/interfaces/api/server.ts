@@ -1,14 +1,18 @@
 import express from "express";
-import bodyParser from "body-parser";
-import contactRoutes from "../../api/routes/contactRoutes";
+import contactRoutes from "./routes/contactRoutes";
+
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
 
-app.use("/contacts", contactRoutes);
+app.use(express.json());
+
+
+app.use("/api/contacts", contactRoutes);
+
+
 
 app.listen(PORT, () => {
-  console.log(`✅ Server is running at http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

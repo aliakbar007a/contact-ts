@@ -1,15 +1,23 @@
 import { Router } from "express";
-
-import { handleAdd } from "../../../domain/modle/handleAdd";
-import { handleDelete } from "../../../domain/modle/handleDelete";
-import { handleEdit } from "../../../domain/modle/handleEdit";
-import { handleShow } from "../../../domain/modle/handleShow";
+import {
+  getAllContacts,
+  addContact,
+  deleteContact,
+  updateContact
+} from "../controllers/contactController";
 
 const router = Router();
 
-router.get("/", handleShow);
-router.post("/", handleAdd);
-router.delete("/:name", handleDelete);
-router.put("/:name", handleEdit); 
+// گرفتن همه مخاطبین
+router.get("/", getAllContacts);
+
+// افزودن مخاطب جدید
+router.post("/", addContact);
+
+// ویرایش مخاطب بر اساس نام
+router.put("/:name", updateContact);
+
+// حذف مخاطب بر اساس نام
+router.delete("/:name", deleteContact);
 
 export default router;

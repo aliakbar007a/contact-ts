@@ -1,17 +1,22 @@
-import { FileContactRepository } from '../../../infrastructure/repositories/fileContactRep';
-import { Contact } from '../../../domain/type';
 
+import { Contact, ContactResponse } from "../../../domain/type";
+import { validateDuplicates } from "../../validations/validDuplicates";
+import { validateName } from "../../validations/validName";
+import { validatePhone } from "../../validations/validPhone";
+import { contactRepository } from "../../../infrastructure/repositories/fileContactRep";
+export async function addContact(
+  newContact: Contact
+): Promise<ContactResponse> {
+  
+    validateName(newContact.name)
+    validatePhone(newContact.phone)
+    await validateDuplicates(newContact)
 
-export function addContact(newContact: Contact): boolean {
-  const repository = new FileContactRepository
-    try {
-      
-      repository.add(newContact)
-        return true;
-      } catch (error) {
-        console.error('Failed to add contact:', error);
-        return false;
-      }
+    await contactRepository.add(newContact)
+    return {
+    success: true,
+    message: `مخاطب "${newContact.name}" با موفقیت اضافه شد.`,
+    data: newContact,
+  };
+  
 }
-
-
