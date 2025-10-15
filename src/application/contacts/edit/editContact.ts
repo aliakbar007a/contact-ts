@@ -1,15 +1,16 @@
-import { contactRepository } from "../../../infrastructure/repositories/fileContactRep";
 import { Contact, ContactResponse } from "../../../domain/type";
 import { validContactExists } from "../../validations/validContactExists";
 import { validateName } from "../../validations/validName";
 import { validatePhone } from "../../validations/validPhone";
 import { validateDuplicates } from "../../validations/validDuplicates";
+import { readContacts } from "../../../infrastructure/persistence/readContacts";
+import { writeAllContacts } from "../../../infrastructure/persistence/writeContact";
 
 export async function editContact(
   name: string,
   updatedData: Partial<Contact> 
-): Promise<ContactResponse> {
-    const contacts = await contactRepository.read();
+): Promise<void> {
+    const contacts = await readContacts();
     const { contact, index } = await validContactExists(name);
 
     if (!contact || index === -1) {
@@ -30,12 +31,8 @@ export async function editContact(
 
     contacts[index] = updatedContact;
 
-    await contactRepository.writeAll(contacts);
+    await writeAllContacts(contacts);
 
-    return {
-      success: true,
-      message: "مخاطب با موفقیت ویرایش شد.",
-      data: updatedContact,
-    };
+    
   
 }

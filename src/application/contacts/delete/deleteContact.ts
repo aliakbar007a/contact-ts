@@ -1,10 +1,11 @@
-import { BaseResponse } from "../../../domain/type";
-import { contactRepository } from "../../../infrastructure/repositories/fileContactRep";
+
+import { readContacts } from "../../../infrastructure/persistence/readContacts";
+import { writeAllContacts } from "../../../infrastructure/persistence/writeContact";
 import { validContactExists } from "../../validations/validContactExists";
 
-export async function deleteContact(name: string): Promise<BaseResponse> {
+export async function deleteContact(name: string): Promise<void> {
   
-    const contacts = await contactRepository.read();
+    const contacts = await readContacts();
 
     const { contact, index } = await validContactExists(name);
 
@@ -14,11 +15,7 @@ export async function deleteContact(name: string): Promise<BaseResponse> {
 
     contacts.splice(index, 1);
 
-    await contactRepository.writeAll(contacts);
+    await writeAllContacts(contacts);
 
-    return {
-      success: true,
-      message: `مخاطب "${name}" با موفقیت حذف شد.`,
-    };
-  
+   
 }

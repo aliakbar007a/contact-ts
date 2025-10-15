@@ -2,6 +2,8 @@ import fs from 'fs';
 import { filePath } from '../data/filePath';
 import { Contact } from '../../domain/type';
 
+let cache : Contact[] | null = null;
+
 function readFileData(): string {
   try {
     return fs.readFileSync(filePath, 'utf-8');
@@ -18,9 +20,14 @@ function parseContacts(data: string): Contact[] {
   }
 }
 
-export function readContacts(): Contact[] {
+export async function readContacts(): Promise<Contact[]> {
+  if(cache) return cache;
   const data = readFileData();
-  return parseContacts(data);
+  const contacts = parseContacts(data);
+  cache = contacts;
+  return contacts;
 }
 
-
+export function clearCache(): void {
+  cache = null
+}
