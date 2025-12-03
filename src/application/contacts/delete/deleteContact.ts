@@ -1,21 +1,11 @@
-
-import { readContacts } from "../../../infrastructure/persistence/readContacts";
 import { writeAllContacts } from "../../../infrastructure/persistence/writeContact";
-import { validContactExists } from "../../validations/validContactExists";
+import { findContactByToken, deleteToken } from "../../tokenServices/tokenService";
 
-export async function deleteContact(name: string): Promise<void> {
-  
-    const contacts = await readContacts();
+export async function deleteContact(token: string): Promise<void> {
+  const { contacts, index } = await findContactByToken(token);
 
-    const { contact, index } = await validContactExists(name);
+  contacts.splice(index, 1);
+  await writeAllContacts(contacts);
 
-    if (!contact || index === -1) {
-      throw new Error("مخاطب مورد نظر یافت نشد.");
-    }
-
-    contacts.splice(index, 1);
-
-    await writeAllContacts(contacts);
-
-   
+  deleteToken(token);
 }

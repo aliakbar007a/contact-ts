@@ -1,23 +1,14 @@
-import { Router } from "express";
-import {
-  getAllContacts,
-  addContact,
-  deleteContact,
-  updateContact
-} from "../controllers/contactController";
+import {Router} from 'express'
+import { showRouter } from './show';
+import { addRouter } from './add';
+import { deleteRouter } from './delete';
+import { updateRouter } from './update'; 
 
-const router = Router();
+export const Routers:Array<[string, Router]> = [
+    ['/', showRouter],
+    ['/add', addRouter],
+    ['/delete', deleteRouter],
+    ['/update', updateRouter]
+]
 
-// گرفتن همه مخاطبین
-router.get("/", getAllContacts);
 
-// افزودن مخاطب جدید
-router.post("/", addContact);
-
-// ویرایش مخاطب بر اساس نام
-router.put("/:name", updateContact);
-
-// حذف مخاطب بر اساس نام
-router.delete("/:name", deleteContact);
-
-export default router;
